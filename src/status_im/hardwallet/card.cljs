@@ -47,11 +47,6 @@
              platform/android?)
     (.addListener event-emitter "keyCardOnDisconnected" callback)))
 
-(defn register-card-events []
-  (remove-event-listeners)
-  (on-card-connected #(re-frame/dispatch [:hardwallet.callback/on-card-connected %]))
-  (on-card-disconnected #(re-frame/dispatch [:hardwallet.callback/on-card-disconnected %])))
-
 (defn get-application-info [{:keys [pairing on-success]}]
   (log/debug "[keycard] get-application-info")
   (.. keycard

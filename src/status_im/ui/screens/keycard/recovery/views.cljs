@@ -2,6 +2,7 @@
   (:require-macros [status-im.utils.views :refer [defview letsubs]])
   (:require [status-im.multiaccounts.recover.core :as multiaccounts.recover]
             [status-im.ui.components.react :as react]
+            [status-im.hardwallet.recovery :as hardwallet.recovery]
             [status-im.ui.screens.keycard.styles :as styles]
             [status-im.ui.screens.keycard.views :as views]
             [status-im.ui.components.toolbar.view :as toolbar]
@@ -79,7 +80,7 @@
      [toolbar/toolbar
       {:transparent? true}
       [toolbar/nav-text
-       {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
+       {:handler #(re-frame/dispatch [::hardwallet.recovery/cancel-pressed])
         :style   {:padding-left 21}}
        (i18n/label :t/cancel)]
       [react/text {:style {:color colors/gray}}
@@ -106,16 +107,11 @@
 (defview pair []
   (letsubs [pair-code [:hardwallet-pair-code]
             error [:hardwallet-setup-error]
-            {:keys [free-pairing-slots]} [:hardwallet-application-info]
-            width [:dimensions/window-width]
-            ref (atom nil)]
+            {:keys [free-pairing-slots]} [:hardwallet-application-info]]
     [react/view styles/container
      [toolbar/toolbar
       {:transparent? true}
-      [toolbar/nav-text
-       {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
-        :style   {:padding-left 21}}
-       (i18n/label :t/cancel)]
+      toolbar/default-nav-back
       [react/text {:style {:color colors/gray}}
        (i18n/label :t/step-i-of-n {:number 2
                                    :step   1})]]
@@ -271,7 +267,7 @@
          [react/text {:style {:color colors/blue}}
           (i18n/label :t/generate-new-key)]]]
        [react/touchable-highlight
-        {:on-press #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])}
+        {:on-press #(re-frame/dispatch [::hardwallet.recovery/cancel-pressed])}
         [react/text {:style {:text-align  :center
                              :padding-top 27
                              :color       colors/blue}}

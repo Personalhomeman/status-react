@@ -3,6 +3,7 @@
   (:require [status-im.ui.components.react :as react]
             [status-im.ui.screens.keycard.styles :as styles]
             [status-im.ui.screens.keycard.views :as views]
+            [status-im.hardwallet.onboarding :as hardwallet.onboarding]
             [status-im.ui.components.toolbar.view :as toolbar]
             [status-im.ui.components.colors :as colors]
             [status-im.ui.components.icons.vector-icons :as vector-icons]
@@ -106,7 +107,7 @@
      [toolbar/toolbar
       {:transparent? true}
       [toolbar/nav-text
-       {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
+       {:handler #(re-frame/dispatch [::hardwallet.onboarding/cancel-pressed])
         :style   {:padding-left 21}}
        (i18n/label :t/cancel)]
       [react/text {:style {:color colors/gray}}
@@ -201,7 +202,7 @@
      [toolbar/toolbar
       {:transparent? true}
       [toolbar/nav-text
-       {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
+       {:handler #(re-frame/dispatch [::hardwallet.onboarding/cancel-pressed])
         :style   {:padding-left 21}}
        (i18n/label :t/cancel)]
       [react/text {:style {:color colors/gray}}
@@ -245,7 +246,7 @@
      [toolbar/toolbar
       {:transparent? true}
       [toolbar/nav-text
-       {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
+       {:handler #(re-frame/dispatch [::hardwallet.onboarding/cancel-pressed])
         :style   {:padding-left 21}}
        (i18n/label :t/cancel)]
       [react/text {:style {:color colors/gray}}
@@ -315,7 +316,7 @@
        [toolbar/toolbar
         {:transparent? true}
         [toolbar/nav-text
-         {:handler #(re-frame/dispatch [:keycard.onboarding.ui/cancel-pressed])
+         {:handler #(re-frame/dispatch [::hardwallet.onboarding/cancel-pressed])
           :style   {:padding-left 21}}
          (i18n/label :t/cancel)]
         [react/text {:style {:color colors/gray}}
