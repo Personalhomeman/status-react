@@ -39,6 +39,7 @@
     [react/activity-indicator {:size      :large
                                :animating true}]]])
 
+;; NOTE(Ferossgp): Seems like it should be in popover
 (defn blank []
   [react/view {:flex             1
                :justify-content  :center
@@ -68,7 +69,7 @@
                                  :height 114}}]]
     [react/view {:margin-bottom 32}
      [react/touchable-highlight
-      {:on-press #(re-frame/dispatch [:keycard.login.ui/got-it-pressed])}
+      {:on-press #(re-frame/dispatch [:navigate-back])}
       [react/view {:background-color colors/blue-light
                    :align-items      :center
                    :justify-content  :center
@@ -79,6 +80,7 @@
        [react/text {:style {:color colors/blue}}
         (i18n/label :t/ok-got-it)]]]]]])
 
+;; NOTE(Ferossgp): Seems like it should be in popover
 (defn wrong []
   [react/view {:flex             1
                :justify-content  :center
@@ -107,7 +109,7 @@
                             :height 124}}]]
     [react/view {:margin-bottom 32}
      [react/touchable-highlight
-      {:on-press #(re-frame/dispatch [:keycard.login.ui/got-it-pressed])}
+      {:on-press #(re-frame/dispatch [:navigate-back])}
       [react/view {:background-color colors/blue-light
                    :align-items      :center
                    :justify-content  :center
@@ -164,6 +166,7 @@
        [react/text {:style {:color colors/blue}}
         (i18n/label :t/dismiss)]]]]]])
 
+;; NOTE(Ferossgp): Seems like it should be in popover
 (defn not-keycard []
   [react/view {:flex             1
                :justify-content  :center
@@ -203,7 +206,7 @@
                                                            :container-style {:margin-left 5}}]]]]]
     [react/view {:margin-bottom 32}
      [react/touchable-highlight
-      {:on-press #(re-frame/dispatch [:keycard.login.ui/got-it-pressed])}
+      {:on-press #(re-frame/dispatch [:navigate-back])}
       [react/view {:background-color colors/blue-light
                    :align-items      :center
                    :justify-content  :center
@@ -225,13 +228,12 @@
             retry-counter [:hardwallet/retry-counter]]
     [react/view styles/container
      [topbar/topbar
-      (cond-> {:accessories [{:icon    :main-icons/more
-                              :handler #(re-frame/dispatch [:keycard.login.pin.ui/more-icon-pressed])}]}
-        multiple-multiaccounts?
-        (assoc :navigation
-               {:icon    :main-icons/back
-                :accessibility-label :back-button
-                :handler #(re-frame/dispatch [:keycard.login.pin.ui/cancel-pressed])}))]
+      {:accessories [{:icon    :main-icons/more
+                      :handler #(re-frame/dispatch [:keycard.login.pin.ui/more-icon-pressed])}]
+       :navigation
+       {:icon                :main-icons/back
+        :accessibility-label :back-button
+        :handler             #(re-frame/dispatch [:keycard.login.pin.ui/cancel-pressed])}}]
      [react/view {:flex            1
                   :flex-direction  :column
                   :justify-content :space-between
