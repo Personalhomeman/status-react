@@ -171,14 +171,14 @@
          :or   {on-cancel [::cancel-sheet-confirm]}}]
   (log/debug "[hardwallet] show-pair-sheet")
   (let [connected? (get-in cofx [:db :hardwallet :card-connected?])]
-   (fx/merge cofx
-             {:dismiss-keyboard true}
-             (bottom-sheet/show-bottom-sheet
-              {:view {:show-handle?      false
-                      :backdrop-dismiss? false
-                      :disable-drag?     true
-                      :content           (keycard-sheet-content on-cancel
-                                                                connected?)}}))))
+    (fx/merge cofx
+              {:dismiss-keyboard true}
+              (bottom-sheet/show-bottom-sheet
+               {:view {:show-handle?      false
+                       :backdrop-dismiss? false
+                       :disable-drag?     true
+                       :content           (keycard-sheet-content on-cancel
+                                                                 connected?)}}))))
 
 (fx/defn hide-pair-sheet
   [{:keys [db] :as cofx}]
@@ -420,7 +420,6 @@
                "on-card-read" on-card-read)
     (fx/merge cofx
               {:db (-> db
-                       (assoc-in [:hardwallet :card-connected?] true)
                        (assoc-in [:hardwallet :card-read-in-progress?] (boolean on-card-read)))}
               (when on-card-connected
                 (dispatch-event on-card-connected))
@@ -435,7 +434,7 @@
   (log/debug "[hardwallet] card disconnected ")
   (fx/merge cofx
             {:db (-> db
-                     (assoc-in [:hardwallet :card-connected?] false)
                      (assoc-in [:hardwallet :card-read-in-progress?] false))}
             (restore-on-card-connected)
             (restore-on-card-read)))
+
