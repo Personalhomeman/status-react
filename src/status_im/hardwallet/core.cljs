@@ -497,3 +497,21 @@
               (when (and (= card-state :multiaccount)
                          (#{:create :recovery} flow))
                 (show-keycard-has-multiaccount-alert)))))
+
+(fx/defn on-card-connected
+  {:events [:hardwallet.callback/on-card-connected]}
+  [{:keys [db]} _]
+  (log/debug "[hardwallet] card globally connected")
+  {:db (assoc-in db [:hardwallet :card-connected?] true)})
+
+(fx/defn on-card-disconnected
+  {:events [:hardwallet.callback/on-card-disconnected]}
+  [{:keys [db]} _]
+  (log/debug "[hardwallet] card disconnected ")
+  {:db (assoc-in db [:hardwallet :card-connected?] false)})
+
+(fx/defn on-register-card-events
+  {:events [:hardwallet.callback/on-register-card-events]}
+  [{:keys [db]} listeners]
+  {:db (update-in db [:hardwallet :listeners] merge listeners)})
+

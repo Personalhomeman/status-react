@@ -31,6 +31,10 @@
  card/init-card)
 
 (re-frame/reg-fx
+ :hardwallet/register-card-events
+ card/register-card-events)
+
+(re-frame/reg-fx
  :hardwallet/remove-event-listeners
  card/remove-event-listeners)
 
