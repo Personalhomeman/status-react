@@ -66,7 +66,7 @@
    :config  (if
                 ;; add view-id here if you'd like that view to be
                 ;; first view when app is started
-             (#{:login :progress :multiaccounts :enter-pin-login :keycard-login-pin} view-id)
+             (#{:login :progress :multiaccounts :keycard-login-pin} view-id)
               {:initialRouteName view-id}
               {:initialRouteName :login})})
 

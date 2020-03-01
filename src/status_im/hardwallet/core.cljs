@@ -21,23 +21,6 @@
             [status-im.multiaccounts.update.core :as multiaccounts.update]
             [status-im.multiaccounts.recover.core :as multiaccounts.recover]))
 
-(fx/defn enter-pin-navigate-back-button-clicked
-  {:events [:hardwallet.ui/enter-pin-navigate-back-button-clicked]}
-  [{:keys [db] :as cofx}]
-  (let [screen-before (set (take 4 (:navigation-stack db)))
-        navigate-to-browser? (contains? screen-before :browser-stack)]
-    (if navigate-to-browser?
-      (fx/merge cofx
-                (common/clear-on-card-connected)
-                ;;TODO use new signing flow
-                ;;(wallet/discard-transaction)
-                (navigation/navigate-to-cofx :browser nil))
-      (if (= :enter-pin-login (:view-id db))
-        (navigation/navigate-to-cofx cofx :multiaccounts nil)
-        (fx/merge cofx
-                  (common/clear-on-card-connected)
-                  (navigation/navigate-back))))))
-
 (fx/defn show-keycard-has-multiaccount-alert
   [{:keys [db] :as cofx}]
   (fx/merge cofx
@@ -107,10 +90,6 @@
                      (assoc-in [:hardwallet :pin :on-verified] nil)
                      (assoc-in [:hardwallet :setup-step] nil))}
             (common/clear-on-card-connected)))
-
-(defn hardwallet-connect-screen-did-load
-  [{:keys [db]}]
-  {:db (assoc-in db [:hardwallet :card-read-in-progress?] false)})
 
 (defn reset-card-screen-did-load
   [{:keys [db]}]
