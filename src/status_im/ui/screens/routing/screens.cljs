@@ -83,8 +83,6 @@
    :intro                                            intro/intro
    :hardwallet-authentication-method                 hardwallet.authentication/hardwallet-authentication-method
    :enter-pin-settings                               hardwallet.pin/enter-pin
-   :enter-pin-sign                                   hardwallet.pin/enter-pin
-   :enter-pin-modal                                  [:modal hardwallet.pin/enter-pin]
    :keycard-onboarding-intro                         keycard.onboarding/intro
    :keycard-onboarding-puk-code                      keycard.onboarding/puk-code
    :keycard-onboarding-pin                           keycard.onboarding/pin
