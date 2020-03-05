@@ -1,6 +1,7 @@
 (ns status-im.ui.components.button
   (:require [status-im.ui.components.react :as react]
             [status-im.ui.components.colors :as colors]
+            [status-im.ui.components.button.animated :as animated-button]
             [status-im.ui.components.icons.vector-icons :as vector-icons]
             [status-im.utils.label :as utils.label]))
 
@@ -51,32 +52,33 @@
 
   Spec: https://www.figma.com/file/cb4p8AxLtTF3q1L6JYDnKN15/Index?node-id=858%3A0"
 
-  [{:keys [label type theme disabled? on-press accessibility-label style container-style] :or {type :main theme :blue}}]
+  [{:keys [label type theme disabled? on-press accessibility-label container-style] :or {type :main theme :blue}}]
   (let [label (utils.label/stringify label)]
-    [react/touchable-opacity (cond-> {:on-press on-press
-                                      :active-opacity 0.5
-                                      :style style}
-                               ;;NOTE `:disabled` must be of type boolean
-                               disabled?
-                               (assoc :disabled (boolean disabled?))
-                               accessibility-label
-                               (assoc :accessibility-label accessibility-label))
-     [react/view {:style (merge (style-container type disabled? theme) container-style)}
-      [react/view {:flex-direction :row :align-items :center}
-       (when (= type :previous)
-         [vector-icons/icon :main-icons/back {:container-style {:width 24 :height 24 :margin-right 4}
-                                              :color (if disabled? colors/gray colors/blue)}])
-       [react/text {:style {:color (cond
-                                     disabled?
-                                     colors/gray
-                                     (#{:main :secondary :next :previous} type)
-                                     (case theme
-                                       :green colors/green
-                                       :red colors/red
-                                       colors/blue)
-                                     :else
-                                     "")}}
-        label]
-       (when (= type :next)
-         [vector-icons/icon :main-icons/next {:container-style {:width 24 :height 24 :margin-left 4}
-                                              :color (if disabled? colors/gray colors/blue)}])]]]))
+    [animated-button/button (cond-> {:on-press  on-press
+                                     :duration 200
+                                     :active-opacity 0.5
+                                     :style (merge (style-container type disabled? theme)
+                                                   container-style)}
+                       ;;NOTE `:disabled` must be of type boolean
+                              disabled?
+                              (assoc :disabled (boolean disabled?))
+                              accessibility-label
+                              (assoc :accessibility-label accessibility-label))
+     [react/view {:flex-direction :row :align-items :center}
+      (when (= type :previous)
+        [vector-icons/icon :main-icons/back {:container-style {:width 24 :height 24 :margin-right 4}
+                                             :color           (if disabled? colors/gray colors/blue)}])
+      [react/text {:style {:color (cond
+                                    disabled?
+                                    colors/gray
+                                    (#{:main :secondary :next :previous} type)
+                                    (case theme
+                                      :green colors/green
+                                      :red   colors/red
+                                      colors/blue)
+                                    :else
+                                    "")}}
+       label]
+      (when (= type :next)
+        [vector-icons/icon :main-icons/next {:container-style {:width 24 :height 24 :margin-left 4}
+                                             :color           (if disabled? colors/gray colors/blue)}])]]))

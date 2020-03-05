@@ -95,11 +95,13 @@
 
 (defn button []
   (let [this     (reagent/current-component)
-        {:keys [duration style on-long-press on-press-start on-press
-                enable-haptic-feedback? haptic-type scale-to opacity-to]
+        {:keys [duration style on-long-press on-press-start on-press disabled
+                enable-haptic-feedback? haptic-type scale-to active-opacity
+                accessibility-label]
          :or   {enable-haptic-feedback? true
+                duration                200
                 scale-to                0.8
-                opacity-to              1
+                active-opacity          1
                 haptic-type             :selection}}
         (reagent/props this)
         children (reagent/children this)
@@ -124,7 +126,6 @@
                                                                           (when enable-haptic-feedback?
                                                                             (haptic/trigger haptic-type))
                                                                           (on-press))
-                                                    :on-gesture-event   on-gesture-event
                                                     :prev-gesture-state prev-gesture-state
                                                     :scale-to           scale-to
                                                     :scale-value        scale-value
@@ -137,10 +138,16 @@
                                                      {:on-press-start on-press-start})))]
     (into [reanimated/animated-raw-button
            {:on-handler-state-change on-gesture-event
+            :enabled                 (not disabled)
+            :accessibility-label     accessibility-label
             :style                   (merge style
                                             {:opacity   (reanimated/interpolate
                                                          scale-value
-                                                         {:inputRange  (if (> scale-to 1) [1 scale-to] [scale-to 1])
-                                                          :outputRange (if (> scale-to 1) [1 opacity-to] [opacity-to 1])})
+                                                         {:inputRange  (if (> scale-to 1)
+                                                                         [1 scale-to]
+                                                                         [scale-to 1])
+                                                          :outputRange (if (> scale-to 1)
+                                                                         [1 active-opacity]
+                                                                         [active-opacity 1])})
                                              :transform [{:scale scale}]})}]
           children)))
