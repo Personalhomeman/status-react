@@ -40,3 +40,8 @@
 (def desktop-config         #js {:addEventListener (fn [])})
 (def desktop-shortcuts      #js {:addEventListener (fn [])})
 (def safe-area-context      (js/require "react-native-safe-area-context"))
+
+(def react-native-haptic-feedback (js/require "react-native-haptic-feedback"))
+
+(def react-native-reanimated (js/require "react-native-reanimated"))
+(def react-native-gesture-handler (js/require "react-native-gesture-handler"))

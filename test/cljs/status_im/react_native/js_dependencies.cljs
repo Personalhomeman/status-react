@@ -57,3 +57,15 @@
 (def net-info  #js {})
 (def touchid  #js {})
 (def safe-area-context #js {})
+
+(def react-native-haptic-feedback #js {:default #js {:trigger nil}})
+
+(def react-native-reanimated #js {:default                 #js {}
+                                  :createAnimatedComponent nil
+                                  :Easing                  #js {}
+                                  :clockRunning            nil
+                                  :View                    nil})
+(def react-native-gesture-handler #js {:default             #js {}
+                                       :State               #js {}
+                                       :PureNativeButton    #{}
+                                       :createNativeWrapper #{}})

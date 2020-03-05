@@ -19,6 +19,7 @@
                  [com.taoensso/encore "2.94.0"]
                  [hickory "0.7.1"]
                  [cljs-bean "1.3.0"]
+                 [binaryage/oops "0.7.0"]
                  [mvxcvi/alphabase "1.0.0"]
                  [rasom/cljs-react-navigation "0.1.4"]]
   :plugins [[rasom/lein-githooks "0.1.5"]
