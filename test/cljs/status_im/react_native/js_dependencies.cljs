@@ -60,12 +60,35 @@
 
 (def react-native-haptic-feedback #js {:default #js {:trigger nil}})
 
-(def react-native-reanimated #js {:default                 #js {}
-                                  :createAnimatedComponent nil
-                                  :Easing                  #js {}
-                                  :clockRunning            nil
-                                  :View                    nil})
+(def react-native-reanimated #js {:default      #js {:createAnimatedComponent identity
+                                                     :eq                      nil
+                                                     :neq                     nil
+                                                     :and                     nil
+                                                     :or                      nil
+                                                     :not                     nil
+                                                     :set                     nil
+                                                     :startClock             nil
+                                                     :stopClock              nil
+                                                     :Value                   nil
+                                                     :Clock                   nil
+                                                     :debug                   nil
+                                                     :log                     nil
+                                                     :event                   nil
+                                                     :cond                    nil
+                                                     :block                   nil
+                                                     :interpolate             nil
+                                                     :call                    nil
+                                                     :timing                  nil
+                                                     :View                    #js {}}
+                                  :Easing       #js {:bezier nil}
+                                  :clockRunning nil})
 (def react-native-gesture-handler #js {:default             #js {}
-                                       :State               #js {}
+                                       :State               #js {:BEGAN        nil
+                                                                 :ACTIVE       nil
+                                                                 :CANCELLED    nil
+                                                                 :END          nil
+                                                                 :FAILED       nil
+                                                                 :UNDETERMINED nil}
                                        :PureNativeButton    #{}
-                                       :createNativeWrapper #{}})
+                                       :TapGestureHandler   #{}
+                                       :createNativeWrapper identity})

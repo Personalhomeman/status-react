@@ -6,6 +6,7 @@
 
 (def animated (oget js-deps/react-native-reanimated "default"))
 (def createAnimatedComponent (oget animated "createAnimatedComponent"))
+
 (def view (reagent/adapt-react-class (oget animated "View")))
 (def clock-running (oget js-deps/react-native-reanimated "clockRunning"))
 (def Easing (oget js-deps/react-native-reanimated "Easing"))
